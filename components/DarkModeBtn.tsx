@@ -13,26 +13,27 @@ const DarkModeBtn = () => {
 
   if (!mounted)
     return (
-      <button>
+      <a className="text-xl btn btn-ghost" onClick={() => setTheme('light')}>
         <div
           className={classNames(
             'w-5 h-5 rounded-md animate-pulse',
             'bg-gray-300 dark:bg-gray-500'
           )}
         ></div>
-      </button>
+      </a>
     );
 
   return (
     <>
       {currentTheme === 'dark' ? (
-        <button>
-          <FiSun className="w-5 h-5" onClick={() => setTheme('light')} />
-        </button>
+        <a className="text-xl btn btn-ghost" onClick={() => setTheme('light')}>
+          <FiSun className="w-5 h-5" />
+        </a>
       ) : (
-        <button>
-          <FiMoon className="w-5 h-5" onClick={() => setTheme('dark')} />
-        </button>
+        <a className="text-xl btn btn-ghost" onClick={() => setTheme('dark')}>
+          {' '}
+          <FiMoon className="w-5 h-5" />
+        </a>
       )}
     </>
   );
