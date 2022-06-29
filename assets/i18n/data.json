@@ -1,0 +1,12 @@
+{
+  "en-US": {
+    "translation": {
+      "Hello": "Hello"
+    }
+  },
+  "zh-CN": {
+    "translation": {
+      "Hello": "你好"
+    }
+  }
+}

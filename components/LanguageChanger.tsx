@@ -1,12 +1,30 @@
 import { useRouter } from 'next/router';
 import i18nData from 'assets/i18n/i18n.json';
-import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
 
 type DataKey = keyof typeof i18nData;
 
 const LanguageChanger = () => {
   const router = useRouter();
   const { locale, pathname, query, asPath } = router;
+  const { i18n } = useTranslation();
+
+  const handleChange = useCallback(
+    (language: DataKey) => {
+      i18n.changeLanguage(language);
+
+      router.push(
+        {
+          pathname,
+          query,
+        },
+        asPath,
+        { locale: language }
+      );
+    },
+    [asPath, i18n, pathname, query, router]
+  );
 
   return (
     <>
@@ -20,9 +38,9 @@ const LanguageChanger = () => {
         >
           {Object.keys(i18nData).map((item) => (
             <li key={item}>
-              <Link href={{ pathname, query }} as={asPath} locale={item}>
-                <a>{i18nData[item as DataKey]}</a>
-              </Link>
+              <a onClick={() => handleChange(item as DataKey)}>
+                {i18nData[item as DataKey]}
+              </a>
             </li>
           ))}
         </ul>

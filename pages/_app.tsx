@@ -3,6 +3,8 @@ import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
 import 'styles/globals.css';
 import { AppPropsWithLayout } from 'types';
+import 'assets/i18n/i18n';
+import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
