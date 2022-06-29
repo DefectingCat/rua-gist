@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
 
       <ThemeProvider
-        attribute="class"
+        attribute="data-theme"
         storageKey="rua-theme"
         themes={['light', 'dark']}
         enableSystem
