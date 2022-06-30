@@ -1,11 +1,11 @@
+import useTranslation from 'lib/hooks/useTranslation';
 import dynamic from 'next/dynamic';
 import { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
 const MainLayout = dynamic(() => import('layouts/MainLayout'));
 
 const Home = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return <div>{t('Hello')}</div>;
 };
