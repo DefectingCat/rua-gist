@@ -2,6 +2,9 @@ import dynamic from 'next/dynamic';
 
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
 const LanguageChanger = dynamic(() => import('components/LanguageChanger'));
+const LoginButton = dynamic(() => import('components/login/LoginButton'));
+
+const menus = [];
 
 const HeadBar = () => {
   return (
@@ -12,6 +15,7 @@ const HeadBar = () => {
         <div>
           <DarkModeBtn />
           <LanguageChanger />
+          <LoginButton />
         </div>
       </div>
     </>
