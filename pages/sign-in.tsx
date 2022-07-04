@@ -1,8 +1,34 @@
+import { useBoolean } from 'ahooks';
 import classNames from 'classnames';
+import { login } from 'lib/api/login';
 import useTranslation from 'lib/hooks/useTranslation';
+import { useForm } from 'react-hook-form';
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 const SignIn = () => {
   const { t } = useTranslation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+  const [loading, loadingOp] = useBoolean(false);
+
+  const onSubmit = handleSubmit(async (data) => {
+    const { email, password } = data;
+    try {
+      loadingOp.setTrue();
+      const result = await login(email, password);
+    } catch (e) {
+    } finally {
+      loadingOp.setFalse();
+    }
+  });
 
   return (
     <>
@@ -24,11 +50,10 @@ const SignIn = () => {
             <h1 className="text-2xl font-semibold">{t('Sign In')}</h1>
           </div>
 
-          <form action="">
+          <form onSubmit={onSubmit}>
             <div>
               <label htmlFor="email">{t('Email')}</label>
               <input
-                id="email"
                 type="text"
                 placeholder={t('email')}
                 className={classNames(
@@ -36,25 +61,35 @@ const SignIn = () => {
                   'input-bordered input',
                   'mt-2'
                 )}
+                {...register('email', {
+                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                })}
               />
             </div>
 
             <div className="pt-6">
               <label htmlFor="passwrod">{t('Password')}</label>
               <input
-                id="passwrod"
-                type="text"
+                type="password"
                 placeholder={t('password')}
                 className={classNames(
                   'w-full transition-all outline-none',
                   'input-bordered input',
                   'mt-2'
                 )}
+                {...register('password', { required: true, maxLength: 30 })}
               />
             </div>
 
             <div className="mt-8">
-              <button className="w-full btn">{t('login')}</button>
+              <button
+                className={classNames(
+                  'w-full btn transition-all',
+                  loading && 'loading'
+                )}
+              >
+                {t('login')}
+              </button>
             </div>
           </form>
         </div>
