@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
 const LanguageChanger = dynamic(() => import('components/LanguageChanger'));
 const LoginButton = dynamic(() => import('components/login/LoginButton'));
+const SignInButton = dynamic(() => import('components/login/SignInButton'));
 
 const menus = [];
 
@@ -18,7 +19,7 @@ const HeadBar = () => {
         <div>
           <DarkModeBtn />
           <LanguageChanger />
-          <LoginButton />
+          {logined ? <LoginButton /> : <SignInButton />}
         </div>
       </div>
     </>

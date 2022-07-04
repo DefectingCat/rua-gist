@@ -1,12 +1,30 @@
 {
   "en-US": {
     "translation": {
-      "Hello": "Hello"
+      "Hello": "Hello",
+      "username": "username",
+      "Username": "Username",
+      "password": "password",
+      "Password": "Password",
+      "login": "login",
+      "sign in": "sign in",
+      "sign up": "sign up",
+      "Sign In": "Sign In",
+      "Sign Up": "Sign Up"
     }
   },
   "zh-CN": {
     "translation": {
-      "Hello": "你好"
+      "Hello": "你好",
+      "username": "用户名",
+      "Username": "用户名",
+      "password": "密码",
+      "Password": "密码",
+      "login": "登录",
+      "sign in": "登录",
+      "sign up": "注册",
+      "Sign In": "登录",
+      "Sign Up": "注册"
     }
   }
 }
