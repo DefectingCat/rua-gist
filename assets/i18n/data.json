@@ -10,7 +10,9 @@
       "sign in": "sign in",
       "sign up": "sign up",
       "Sign In": "Sign In",
-      "Sign Up": "Sign Up"
+      "Sign Up": "Sign Up",
+      "Email": "Email",
+      "email": "email"
     }
   },
   "zh-CN": {
@@ -24,7 +26,9 @@
       "sign in": "登录",
       "sign up": "注册",
       "Sign In": "登录",
-      "Sign Up": "注册"
+      "Sign Up": "注册",
+      "Email": "邮箱",
+      "email": "邮箱"
     }
   }
 }

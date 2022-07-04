@@ -1,9 +1,10 @@
 import rsa from 'jsrsasign';
 import 'dotenv/config';
+import { MAX_AGE } from 'lib/constents';
 
 export const generateJwt = (data: unknown) => {
   const current = rsa.KJUR.jws.IntDate.get('now');
-  const expireOneMinute = current + 86400;
+  const expireOneMinute = current + MAX_AGE;
   const header = { alg: 'HS256', typ: 'JWT' };
   const payload = {
     iat: current,

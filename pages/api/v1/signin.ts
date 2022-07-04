@@ -1,3 +1,4 @@
+import { MAX_AGE } from 'lib/constents';
 import prisma from 'lib/PrismaClient';
 import { generateJwt } from 'lib/utils/jwt-tools';
 import { verifyPasswd } from 'lib/utils/password-tools';
@@ -38,7 +39,7 @@ export default async function handler(
 
       const signature = generateJwt(user);
       nookies.set({ res }, 'token', signature, {
-        maxAge: 30 * 24 * 60 * 60,
+        maxAge: MAX_AGE,
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
       });
