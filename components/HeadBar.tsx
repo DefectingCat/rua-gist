@@ -1,3 +1,4 @@
+import { useAppSelector } from 'app/hooks';
 import dynamic from 'next/dynamic';
 
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
@@ -7,6 +8,8 @@ const LoginButton = dynamic(() => import('components/login/LoginButton'));
 const menus = [];
 
 const HeadBar = () => {
+  const { logined } = useAppSelector((state) => state.users);
+
   return (
     <>
       <div className="flex justify-between navbar bg-base-100">
