@@ -6,6 +6,7 @@ import { compile } from 'lib/utils/validator-tools';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nookies from 'nookies';
 import { SignInReturn } from 'types/api';
+import { logger } from 'lib/utils/logger-tools';
 
 const schema = {
   email: { type: 'string', min: 3, max: 255 },
@@ -14,38 +15,47 @@ const schema = {
 
 const check = compile(schema);
 
+const log = logger.child({ api: 'sigin' });
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<SignInReturn>
 ) {
   const signin = async () => {
+    log.info('access accept');
     try {
       const checkResult = await check(req.body);
-      if (checkResult !== true)
+      if (checkResult !== true) {
+        log.info('params error');
         return res.status(401).json({
           status: 'error',
           message: 'params error.',
           data: checkResult,
         });
+      }
 
       const user = await prisma.user.findUnique({
         where: {
           email: req.body.email,
         },
       });
-      if (!user)
+      if (!user) {
+        log.error('user not exist.');
         return res.status(401).json({
           status: 'error',
           message: 'email or password error.',
           data: {},
         });
+      }
 
-      if (!verifyPasswd(req.body.password, user.password))
+      if (!verifyPasswd(req.body.password, user.password)) {
+        log.error('email or password error.');
         return res.status(401).json({
           status: 'error',
           message: 'email or password error.',
           data: {},
         });
+      }
 
       const { id: _id, password: _password, ...returnUser } = user;
       const signature = generateJWT(returnUser);
@@ -55,13 +65,19 @@ export default async function handler(
         httpOnly: true,
         path: '/',
       });
+      log.info('login sucess.');
       res.status(200).json({
         status: 'sucess',
         message: 'login sucesss.',
         data: returnUser,
       });
-    } catch (error) {
-      res.status(500);
+    } catch (e) {
+      log.error(e);
+      return res.status(500).json({
+        status: 'error',
+        message: 'internal server error.',
+        data: {},
+      });
     } finally {
       await prisma.$disconnect();
     }

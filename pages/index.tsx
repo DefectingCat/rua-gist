@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import nookies from 'nookies';
 import { ReactElement } from 'react';
 import prisma from 'lib/PrismaClient';
+import { logger } from 'lib/utils/logger-tools';
 
 const MainLayout = dynamic(() => import('layouts/MainLayout'));
 
@@ -42,7 +43,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   } catch (e) {
-    console.log(e);
+    if (e instanceof Error) {
+      logger.error(e);
+    } else {
+      logger.info(e);
+    }
     return {
       props: {},
     };
