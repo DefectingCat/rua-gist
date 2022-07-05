@@ -12,7 +12,13 @@ const MainLayout = dynamic(() => import('layouts/MainLayout'));
 const Home = () => {
   const { t } = useTranslation();
 
-  return <div>{t('Hello')}</div>;
+  return (
+    <>
+      <div className="container mx-auto">
+        <div>{t('Hello')}</div>
+      </div>
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -45,8 +51,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (e) {
     if (e instanceof Error) {
       logger.error(e);
-    } else {
-      logger.info(e);
     }
     return {
       props: {},
