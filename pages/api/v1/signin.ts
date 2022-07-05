@@ -47,7 +47,8 @@ export default async function handler(
           data: {},
         });
 
-      const signature = generateJwt(user);
+      const { id: _id, password: _password, ...returnUser } = user;
+      const signature = generateJwt(returnUser);
       nookies.set({ res }, 'token', signature, {
         maxAge: MAX_AGE,
         secure: process.env.NODE_ENV === 'production',
@@ -56,7 +57,7 @@ export default async function handler(
       res.status(200).json({
         status: 'sucess',
         message: 'login sucesss.',
-        data: {},
+        data: returnUser,
       });
     } catch (error) {
       res.status(500);

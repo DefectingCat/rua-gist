@@ -21,13 +21,19 @@ export const userSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState>) => {
-      state = action.payload;
+    setUser(state, action: PayloadAction<UserState>) {
+      return action.payload;
+    },
+    setLogined(state) {
+      state.logined = true;
+    },
+    setUserInfo(state, action: PayloadAction<Omit<UserState, 'logined'>>) {
+      return { ...state, ...action.payload };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions;
+export const { setUser, setLogined, setUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;

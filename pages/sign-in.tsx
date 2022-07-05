@@ -1,7 +1,10 @@
 import { useBoolean } from 'ahooks';
+import { setLogined, setUserInfo } from 'app/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import classNames from 'classnames';
 import { login } from 'lib/api/login';
 import useTranslation from 'lib/hooks/useTranslation';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -12,6 +15,10 @@ type FormData = {
 
 const SignIn = () => {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const { logined } = useAppSelector((state) => state.users);
 
   const errorMap = {
     required: t('Value required'),
@@ -34,6 +41,11 @@ const SignIn = () => {
     try {
       loadingOp.setTrue();
       const result = await login(email, password);
+      if (result.status === 'sucess') {
+        router.push('/');
+        dispatch(setLogined());
+        if ('name' in result.data) dispatch(setUserInfo(result.data));
+      }
     } catch (e) {
     } finally {
       loadingOp.setFalse();
