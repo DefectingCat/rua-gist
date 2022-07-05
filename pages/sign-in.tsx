@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { login } from 'lib/api/login';
 import useTranslation from 'lib/hooks/useTranslation';
 import { useForm } from 'react-hook-form';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 type FormData = {
   email: string;
@@ -17,7 +18,9 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+
   const [loading, loadingOp] = useBoolean(false);
+  const [showPass, showPassOp] = useBoolean(false);
 
   const onSubmit = handleSubmit(async (data) => {
     const { email, password } = data;
@@ -67,18 +70,32 @@ const SignIn = () => {
               />
             </div>
 
-            <div className="pt-6">
+            <div>
               <label htmlFor="passwrod">{t('Password')}</label>
-              <input
-                type="password"
-                placeholder={t('password')}
-                className={classNames(
-                  'w-full transition-all outline-none',
-                  'input-bordered input',
-                  'mt-2'
-                )}
-                {...register('password', { required: true, maxLength: 30 })}
-              />
+
+              <div className="relative flex items-center mt-2 ">
+                <input
+                  type={showPass ? 'text' : 'password'}
+                  placeholder={t('password')}
+                  className={classNames(
+                    'w-full transition-all outline-none',
+                    'input-bordered input',
+                    'flex-1 pr-10'
+                  )}
+                  {...register('password', { required: true, maxLength: 30 })}
+                />
+
+                <div
+                  className="absolute cursor-pointer right-3"
+                  onClick={showPassOp.toggle}
+                >
+                  {showPass ? (
+                    <AiFillEyeInvisible className="w-6 h-6" />
+                  ) : (
+                    <AiFillEye className="w-6 h-6" />
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="mt-8">
