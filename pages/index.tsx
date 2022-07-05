@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const cookies = nookies.get({ req });
     const token = cookies.token;
-    if (!token) throw new Error('No token');
+    if (!token) throw 'No token';
 
     const { payloadObj }: { payloadObj: any } = decodeJWT(token);
     if (!payloadObj) throw new Error('Token parse error!');
