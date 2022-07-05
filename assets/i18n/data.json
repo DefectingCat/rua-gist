@@ -12,7 +12,9 @@
       "Sign In": "Sign In",
       "Sign Up": "Sign Up",
       "Email": "Email",
-      "email": "email"
+      "email": "email",
+      "Value required": "Value required",
+      "Not a valid email address": "Not a valid email address"
     }
   },
   "zh-CN": {
@@ -28,7 +30,9 @@
       "Sign In": "登录",
       "Sign Up": "注册",
       "Email": "邮箱",
-      "email": "邮箱"
+      "email": "邮箱",
+      "Value required": "请输入值",
+      "Not a valid email address": "邮箱格式不正确"
     }
   }
 }

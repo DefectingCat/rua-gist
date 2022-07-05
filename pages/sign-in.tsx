@@ -13,11 +13,18 @@ type FormData = {
 const SignIn = () => {
   const { t } = useTranslation();
 
+  const errorMap = {
+    required: t('Value required'),
+    pattern: t('Not a valid email address'),
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    mode: 'onChange',
+  });
 
   const [loading, loadingOp] = useBoolean(false);
   const [showPass, showPassOp] = useBoolean(false);
@@ -56,18 +63,31 @@ const SignIn = () => {
           <form onSubmit={onSubmit}>
             <div>
               <label htmlFor="email">{t('Email')}</label>
-              <input
-                type="text"
-                placeholder={t('email')}
-                className={classNames(
-                  'w-full transition-all outline-none',
-                  'input-bordered input',
-                  'mt-2'
-                )}
-                {...register('email', {
-                  pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-                })}
-              />
+
+              <div className="relative mt-2">
+                <input
+                  type="text"
+                  placeholder={t('email')}
+                  className={classNames(
+                    'w-full transition-all outline-none',
+                    'input-bordered input',
+                    errors.email?.type && 'input-error'
+                  )}
+                  {...register('email', {
+                    required: true,
+                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                  })}
+                />
+                <span
+                  className={classNames(
+                    'absolute right-0 top-[-55%]',
+                    'text-error text-sm'
+                  )}
+                >
+                  {errors.email?.type &&
+                    errorMap[errors.email.type as keyof typeof errorMap]}
+                </span>
+              </div>
             </div>
 
             <div>
@@ -80,7 +100,8 @@ const SignIn = () => {
                   className={classNames(
                     'w-full transition-all outline-none',
                     'input-bordered input',
-                    'flex-1 pr-10'
+                    'flex-1 pr-10',
+                    errors.password?.type && 'input-error'
                   )}
                   {...register('password', { required: true, maxLength: 30 })}
                 />
@@ -95,6 +116,16 @@ const SignIn = () => {
                     <AiFillEye className="w-6 h-6" />
                   )}
                 </div>
+
+                <span
+                  className={classNames(
+                    'absolute right-0 top-[-55%]',
+                    'text-error text-sm'
+                  )}
+                >
+                  {errors.password?.type &&
+                    errorMap[errors.password.type as keyof typeof errorMap]}
+                </span>
               </div>
             </div>
 
