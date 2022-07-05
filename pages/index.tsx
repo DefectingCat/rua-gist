@@ -15,6 +15,8 @@ const Home = () => {
   return (
     <>
       <div className="container mx-auto">
+        <h1></h1>
+        The way to explor good idea.
         <div>{t('Hello')}</div>
       </div>
     </>

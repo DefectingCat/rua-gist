@@ -11,9 +11,9 @@
   color: inherit;
 }
 
-body {
+/* body {
   @apply bg-bluish-gray dark:bg-transparent;
-}
+} */
 
 .dark *::selection {
   background: hsl(220, 13%, 28%);

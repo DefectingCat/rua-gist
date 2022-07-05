@@ -1,5 +1,6 @@
 import { useAppSelector } from 'app/hooks';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
 const LanguageChanger = dynamic(() => import('components/LanguageChanger'));
@@ -15,7 +16,9 @@ const HeadBar = () => {
     <>
       <div className="bg-base-100">
         <div className="container flex justify-between mx-auto navbar">
-          <a className="text-xl normal-case btn btn-ghost">RUA Gist</a>
+          <Link href="/">
+            <a className="text-xl normal-case btn btn-ghost">RUA Gist</a>
+          </Link>
 
           <div>
             <DarkModeBtn />

@@ -19,6 +19,7 @@ const SignIn = () => {
 
   const dispatch = useAppDispatch();
   const { logined } = useAppSelector((state) => state.users);
+  if (logined) router.back();
 
   const errorMap = {
     required: t('Value required'),
@@ -54,104 +55,106 @@ const SignIn = () => {
 
   return (
     <>
-      <div
-        className={classNames(
-          'h-[100vh] flex items-center ',
-          'md:justify-between container m-auto'
-        )}
-      >
-        <div></div>
-
+      <div className="w-[100vw] h-[100vh] bg-bluish-gray dark:bg-gray-700">
         <div
           className={classNames(
-            'p-8 shadow-xl w-full bg-base-100 card',
-            'max-w-md'
+            'h-[100vh] flex items-center ',
+            'md:justify-between container m-auto'
           )}
         >
-          <div className="pb-6">
-            <h1 className="text-2xl font-semibold">{t('Sign In')}</h1>
-          </div>
+          <div></div>
 
-          <form onSubmit={onSubmit}>
-            <div>
-              <label htmlFor="email">{t('Email')}</label>
-
-              <div className="relative mt-2">
-                <input
-                  type="text"
-                  placeholder={t('email')}
-                  className={classNames(
-                    'w-full transition-all outline-none',
-                    'input-bordered input',
-                    errors.email?.type && 'input-error'
-                  )}
-                  {...register('email', {
-                    required: true,
-                    pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-                  })}
-                />
-                <span
-                  className={classNames(
-                    'absolute right-0 top-[-55%]',
-                    'text-error text-sm'
-                  )}
-                >
-                  {errors.email?.type &&
-                    errorMap[errors.email.type as keyof typeof errorMap]}
-                </span>
-              </div>
+          <div
+            className={classNames(
+              'p-8 shadow-xl w-full bg-base-100 card',
+              'max-w-md'
+            )}
+          >
+            <div className="pb-6">
+              <h1 className="text-2xl font-semibold">{t('Sign In')}</h1>
             </div>
 
-            <div>
-              <label htmlFor="passwrod">{t('Password')}</label>
+            <form onSubmit={onSubmit}>
+              <div>
+                <label htmlFor="email">{t('Email')}</label>
 
-              <div className="relative flex items-center mt-2 ">
-                <input
-                  type={showPass ? 'text' : 'password'}
-                  placeholder={t('password')}
-                  className={classNames(
-                    'w-full transition-all outline-none',
-                    'input-bordered input',
-                    'flex-1 pr-10',
-                    errors.password?.type && 'input-error'
-                  )}
-                  {...register('password', { required: true, maxLength: 30 })}
-                />
-
-                <div
-                  className="absolute cursor-pointer right-3"
-                  onClick={showPassOp.toggle}
-                >
-                  {showPass ? (
-                    <AiFillEyeInvisible className="w-6 h-6" />
-                  ) : (
-                    <AiFillEye className="w-6 h-6" />
-                  )}
+                <div className="relative mt-2">
+                  <input
+                    type="text"
+                    placeholder={t('email')}
+                    className={classNames(
+                      'w-full transition-all outline-none',
+                      'input-bordered input',
+                      errors.email?.type && 'input-error'
+                    )}
+                    {...register('email', {
+                      required: true,
+                      pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                    })}
+                  />
+                  <span
+                    className={classNames(
+                      'absolute right-0 top-[-55%]',
+                      'text-error text-sm'
+                    )}
+                  >
+                    {errors.email?.type &&
+                      errorMap[errors.email.type as keyof typeof errorMap]}
+                  </span>
                 </div>
+              </div>
 
-                <span
+              <div>
+                <label htmlFor="passwrod">{t('Password')}</label>
+
+                <div className="relative flex items-center mt-2 ">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    placeholder={t('password')}
+                    className={classNames(
+                      'w-full transition-all outline-none',
+                      'input-bordered input',
+                      'flex-1 pr-10',
+                      errors.password?.type && 'input-error'
+                    )}
+                    {...register('password', { required: true, maxLength: 30 })}
+                  />
+
+                  <div
+                    className="absolute cursor-pointer right-3"
+                    onClick={showPassOp.toggle}
+                  >
+                    {showPass ? (
+                      <AiFillEyeInvisible className="w-6 h-6" />
+                    ) : (
+                      <AiFillEye className="w-6 h-6" />
+                    )}
+                  </div>
+
+                  <span
+                    className={classNames(
+                      'absolute right-0 top-[-55%]',
+                      'text-error text-sm'
+                    )}
+                  >
+                    {errors.password?.type &&
+                      errorMap[errors.password.type as keyof typeof errorMap]}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <button
                   className={classNames(
-                    'absolute right-0 top-[-55%]',
-                    'text-error text-sm'
+                    'w-full btn transition-all',
+                    loading && 'loading'
                   )}
                 >
-                  {errors.password?.type &&
-                    errorMap[errors.password.type as keyof typeof errorMap]}
-                </span>
+                  {t('login')}
+                </button>
               </div>
-            </div>
-
-            <div className="mt-8">
-              <button
-                className={classNames(
-                  'w-full btn transition-all',
-                  loading && 'loading'
-                )}
-              >
-                {t('login')}
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </>
