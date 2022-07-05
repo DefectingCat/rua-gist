@@ -1,12 +1,25 @@
 import Image from 'next/image';
 import defaultAvatar from 'assets/images/login/user-avatar.svg';
+import { useCallback } from 'react';
+import { logout } from 'lib/api/login';
+import { useRouter } from 'next/router';
 
 const LoginButton = () => {
+  const router = useRouter();
+
+  const handleLogout = useCallback(async () => {
+    try {
+      const result = await logout();
+      router.reload();
+    } catch (e) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-          <div className="rounded-full  w-7">
+          <div className="rounded-full w-7">
             <Image src={defaultAvatar} alt="avatar" />
           </div>
         </label>
@@ -25,7 +38,7 @@ const LoginButton = () => {
             <a>Settings</a>
           </li>
           <li>
-            <a>Logout</a>
+            <a onClick={handleLogout}>Logout</a>
           </li>
         </ul>
       </div>

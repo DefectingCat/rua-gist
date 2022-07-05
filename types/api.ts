@@ -1,6 +1,10 @@
 import { ValidationError } from 'fastest-validator';
 
 export type BaseStatus = 'sucess' | 'error';
+export type BaseInfo = {
+  status: BaseStatus;
+  message: string;
+};
 
 export type UserInfo = {
   name: string | null;
@@ -9,7 +13,5 @@ export type UserInfo = {
   avatar: string | null;
 };
 export type SignInReturn = {
-  status: BaseStatus;
-  message: string;
   data: UserInfo | {} | ValidationError[];
-};
+} & BaseInfo;
