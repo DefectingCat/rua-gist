@@ -45,7 +45,6 @@ const DarkModeBtn = () => {
           className="text-xl btn btn-ghost"
           onClick={() => setThemeWithClass('dark')}
         >
-          {' '}
           <FiMoon className="w-5 h-5" />
         </a>
       )}

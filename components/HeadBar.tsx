@@ -5,11 +5,16 @@ import { checkUser } from 'lib/api/login';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import AvatarLoading from './loading/AvatarLoading';
 
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
 const LanguageChanger = dynamic(() => import('components/LanguageChanger'));
-const LoginButton = dynamic(() => import('components/login/LoginButton'));
-const SignInButton = dynamic(() => import('components/login/SignInButton'));
+const LoginButton = dynamic(() => import('components/login/LoginButton'), {
+  loading: () => <AvatarLoading />,
+});
+const SignInButton = dynamic(() => import('components/login/SignInButton'), {
+  loading: () => <AvatarLoading />,
+});
 
 const menus = [];
 
