@@ -23,6 +23,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (logined) router.back();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const errorMap = {

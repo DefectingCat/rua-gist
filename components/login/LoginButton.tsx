@@ -3,15 +3,22 @@ import defaultAvatar from 'assets/images/login/user-avatar.svg';
 import { useCallback } from 'react';
 import { logout } from 'lib/api/login';
 import { useRouter } from 'next/router';
+import { VscLoading } from 'react-icons/vsc';
+import { useBoolean } from 'ahooks';
 
 const LoginButton = () => {
   const router = useRouter();
 
+  const [loading, loadingOp] = useBoolean(false);
   const handleLogout = useCallback(async () => {
     try {
-      const result = await logout();
+      loadingOp.setTrue();
+      await logout();
       router.reload();
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      loadingOp.setFalse();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,16 +36,18 @@ const LoginButton = () => {
           className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
         >
           <li>
-            <a className="justify-between">
-              Profile
-              <span className="badge">New</span>
-            </a>
+            <a>Profile</a>
           </li>
           <li>
             <a>Settings</a>
           </li>
           <li>
-            <a onClick={handleLogout}>Logout</a>
+            <a onClick={handleLogout}>
+              {loading && (
+                <VscLoading className="transition-all animate-spin" />
+              )}
+              Logout
+            </a>
           </li>
         </ul>
       </div>
