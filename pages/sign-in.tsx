@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { login } from 'lib/api/login';
 import useTranslation from 'lib/hooks/useTranslation';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
@@ -19,7 +20,10 @@ const SignIn = () => {
 
   const dispatch = useAppDispatch();
   const { logined } = useAppSelector((state) => state.users);
-  if (logined) router.back();
+
+  useEffect(() => {
+    if (logined) router.back();
+  }, []);
 
   const errorMap = {
     required: t('Value required'),

@@ -1,10 +1,6 @@
-import { setLogined, setUserInfo } from 'app/features/user/userSlice';
 import { useAppSelector } from 'app/hooks';
-import { store } from 'app/store';
-import { checkUser } from 'lib/api/login';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useEffect } from 'react';
 import AvatarLoading from './loading/AvatarLoading';
 
 const DarkModeBtn = dynamic(() => import('components/DarkModeBtn'));
@@ -18,22 +14,8 @@ const SignInButton = dynamic(() => import('components/login/SignInButton'), {
 
 const menus = [];
 
-const checkUserLogined = async () => {
-  try {
-    const result = await checkUser();
-    if ('email' in result.data) {
-      store.dispatch(setLogined());
-      store.dispatch(setUserInfo(result.data));
-    }
-  } catch (e) {}
-};
-
 const HeadBar = () => {
   const { logined } = useAppSelector((state) => state.users);
-
-  useEffect(() => {
-    checkUserLogined();
-  }, []);
 
   return (
     <>
