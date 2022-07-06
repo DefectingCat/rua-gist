@@ -1,20 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserState {
-  logined: boolean;
+export type UserInfo = {
+  id: number;
   name: string | null;
   email: string;
   bio: string | null;
   avatar: string | null;
-}
+  createdAt: string;
+  updatedAt: string;
+  twitterUsername: string | null;
+  blog: string | null;
+  followers: number;
+  following: number;
+};
+export type UserState = {
+  logined: boolean;
+} & UserInfo;
 
 const initialState: UserState = {
   logined: false,
+  id: 0,
   name: '',
   email: '',
-  bio: '',
-  avatar: '',
+  bio: null,
+  avatar: null,
+  createdAt: '',
+  updatedAt: '',
+  twitterUsername: null,
+  blog: null,
+  followers: 0,
+  following: 0,
 };
 
 export const userSlice = createSlice({

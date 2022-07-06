@@ -36,16 +36,28 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       where: {
         email: payloadObj.data.email,
       },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bio: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+        twitterUsername: true,
+        blog: true,
+        followers: true,
+        following: true,
+      },
     });
     if (!user) throw new Error('User in token was not found!');
 
-    const { id: _id, password: _password, ...returnUser } = user;
     return {
       props: {
         initialState: {
           users: {
             logined: true,
-            ...returnUser,
+            ...JSON.parse(JSON.stringify(user)),
           },
         },
       },

@@ -38,6 +38,20 @@ export default async function handler(
         where: {
           email: req.body.email,
         },
+        select: {
+          id: true,
+          password: true,
+          name: true,
+          email: true,
+          bio: true,
+          avatar: true,
+          createdAt: true,
+          updatedAt: true,
+          twitterUsername: true,
+          blog: true,
+          followers: true,
+          following: true,
+        },
       });
       if (!user) {
         log.error('user not exist.');
@@ -57,7 +71,7 @@ export default async function handler(
         });
       }
 
-      const { id: _id, password: _password, ...returnUser } = user;
+      const { password: _password, ...returnUser } = user;
       const signature = generateJWT(returnUser);
       nookies.set({ res }, 'token', signature, {
         maxAge: MAX_AGE,
