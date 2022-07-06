@@ -15,3 +15,6 @@ export type UserInfo = {
 export type SignInReturn = {
   data: UserInfo | {} | ValidationError[];
 } & BaseInfo;
+export type CheckUserReturn = {
+  data: UserInfo;
+} & BaseInfo;

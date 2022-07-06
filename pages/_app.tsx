@@ -1,16 +1,14 @@
-import { createStore } from 'app/store';
 import useRouterLoading from 'lib/hooks/useRouterLoading';
 import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
 import 'styles/globals.css';
 import { AppPropsWithLayout } from 'types';
+import { store } from 'app/store';
+import { Provider } from 'react-redux';
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  const { initialState } = pageProps;
-  const store = createStore(initialState);
   const { loading } = useRouterLoading();
 
   return (
