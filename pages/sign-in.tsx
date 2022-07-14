@@ -4,12 +4,16 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import classNames from 'classnames';
 import { login } from 'lib/api/login';
 import useTranslation from 'lib/hooks/useTranslation';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
-type FormData = {
+const EmailInput = dynamic(() => import('components/sign-in/EmailInput'));
+const PasswrodInput = dynamic(() => import('components/sign-in/PasswrodInput'));
+const SignInButton = dynamic(() => import('components/sign-in/SignInButton'));
+
+export type SigninFormData = {
   email: string;
   password: string;
 };
@@ -35,12 +39,11 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<SigninFormData>({
     mode: 'onChange',
   });
 
   const [loading, loadingOp] = useBoolean(false);
-  const [showPass, showPassOp] = useBoolean(false);
 
   const onSubmit = handleSubmit(async (data) => {
     const { email, password } = data;
@@ -80,84 +83,19 @@ const SignIn = () => {
             </div>
 
             <form onSubmit={onSubmit}>
-              <div>
-                <label htmlFor="email">{t('Email')}</label>
+              <EmailInput
+                register={register}
+                errors={errors}
+                errorMap={errorMap}
+              />
 
-                <div className="relative mt-2">
-                  <input
-                    type="text"
-                    placeholder={t('email')}
-                    className={classNames(
-                      'w-full transition-all outline-none',
-                      'input-bordered input',
-                      errors.email?.type && 'input-error'
-                    )}
-                    {...register('email', {
-                      required: true,
-                      pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-                    })}
-                  />
-                  <span
-                    className={classNames(
-                      'absolute right-0 top-[-55%]',
-                      'text-error text-sm'
-                    )}
-                  >
-                    {errors.email?.type &&
-                      errorMap[errors.email.type as keyof typeof errorMap]}
-                  </span>
-                </div>
-              </div>
+              <PasswrodInput
+                register={register}
+                errors={errors}
+                errorMap={errorMap}
+              />
 
-              <div>
-                <label htmlFor="passwrod">{t('Password')}</label>
-
-                <div className="relative flex items-center mt-2 ">
-                  <input
-                    type={showPass ? 'text' : 'password'}
-                    placeholder={t('password')}
-                    className={classNames(
-                      'w-full transition-all outline-none',
-                      'input-bordered input',
-                      'flex-1 pr-10',
-                      errors.password?.type && 'input-error'
-                    )}
-                    {...register('password', { required: true, maxLength: 30 })}
-                  />
-
-                  <div
-                    className="absolute cursor-pointer right-3"
-                    onClick={showPassOp.toggle}
-                  >
-                    {showPass ? (
-                      <AiFillEyeInvisible className="w-6 h-6" />
-                    ) : (
-                      <AiFillEye className="w-6 h-6" />
-                    )}
-                  </div>
-
-                  <span
-                    className={classNames(
-                      'absolute right-0 top-[-55%]',
-                      'text-error text-sm'
-                    )}
-                  >
-                    {errors.password?.type &&
-                      errorMap[errors.password.type as keyof typeof errorMap]}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <button
-                  className={classNames(
-                    'w-full btn transition-all',
-                    loading && 'loading'
-                  )}
-                >
-                  {t('login')}
-                </button>
-              </div>
+              <SignInButton loading={loading} />
             </form>
           </div>
         </div>
