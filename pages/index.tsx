@@ -21,10 +21,12 @@ const Home = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const props = await checkLogin(req);
+  const initialState = await checkLogin(req);
 
   return {
-    props: props,
+    props: {
+      initialState,
+    },
   };
 };
 

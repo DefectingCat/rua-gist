@@ -1,7 +1,6 @@
-import Image from 'next/image';
-import defaultAvatar from 'assets/images/login/user-avatar.svg';
-import Link from 'next/link';
+import Avatar from 'boring-avatars';
 import useTranslation from 'lib/hooks/useTranslation';
+import Link from 'next/link';
 
 const SignInButton = () => {
   const { t } = useTranslation();
@@ -10,8 +9,13 @@ const SignInButton = () => {
     <>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-          <div className="rounded-full w-7">
-            <Image src={defaultAvatar} alt="avatar" />
+          <div className="w-8 rounded-full">
+            <Avatar
+              size={32}
+              name="Margaret Brent"
+              variant="beam"
+              colors={['#595643', '#4E6B66', '#ED834E', '#EBCC6E', '#EBE1C5']}
+            />
           </div>
         </label>
 

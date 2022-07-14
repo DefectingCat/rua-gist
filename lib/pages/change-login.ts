@@ -37,17 +37,16 @@ export const checkLogin = async (
     if (!user) throw new Error('User in token was not found!');
 
     return {
-      initialState: {
-        users: {
-          logined: true,
-          ...JSON.parse(JSON.stringify(user)),
-        },
+      users: {
+        logined: true,
+        ...JSON.parse(JSON.stringify(user)),
       },
     };
   } catch (e) {
     if (e instanceof Error) {
       logger.error(e);
     }
+
     return {};
   } finally {
     prisma.$disconnect();
