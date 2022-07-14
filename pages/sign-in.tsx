@@ -47,7 +47,7 @@ const SignIn = () => {
     try {
       loadingOp.setTrue();
       const result = await login(email, password);
-      if (result.status === 'sucess') {
+      if (result.status === 'success') {
         router.push('/');
         dispatch(setLogined());
         if ('name' in result.data) dispatch(setUserInfo(result.data));

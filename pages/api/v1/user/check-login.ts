@@ -16,7 +16,7 @@ export default async function handler(
       const token = cookies.token;
       if (!token)
         return res.status(401).json({
-          status: 'sucess',
+          status: 'success',
           message: 'no token.',
           data: {},
         });
@@ -46,10 +46,10 @@ export default async function handler(
       }
 
       const { id: _id, password: _password, ...returnUser } = user;
-      log.info('check sucess.');
+      log.info('check success.');
       res.status(200).json({
-        status: 'sucess',
-        message: 'check sucesss.',
+        status: 'success',
+        message: 'check success.',
         data: returnUser,
       });
     } catch (e) {

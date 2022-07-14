@@ -1,6 +1,6 @@
 import rsa from 'jsrsasign';
 import 'dotenv/config';
-import { MAX_AGE } from 'lib/constents';
+import { MAX_AGE } from 'lib/constants';
 
 export const generateJWT = (data: unknown) => {
   const key = process.env.JWT_KEY;

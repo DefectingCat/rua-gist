@@ -1,4 +1,4 @@
-import { MAX_AGE } from 'lib/constents';
+import { MAX_AGE } from 'lib/constants';
 import prisma from 'lib/PrismaClient';
 import { generateJWT } from 'lib/utils/jwt-tools';
 import { verifyPasswd } from 'lib/utils/password-tools';
@@ -79,10 +79,10 @@ export default async function handler(
         httpOnly: true,
         path: '/',
       });
-      log.info('login sucess.');
+      log.info('login success.');
       res.status(200).json({
-        status: 'sucess',
-        message: 'login sucesss.',
+        status: 'success',
+        message: 'login success.',
         data: returnUser,
       });
     } catch (e) {

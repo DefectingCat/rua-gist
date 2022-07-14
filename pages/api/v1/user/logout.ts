@@ -13,8 +13,8 @@ export default async function handler(
       path: '/',
     });
     res.status(200).json({
-      status: 'sucess',
-      message: 'logout sucesss.',
+      status: 'success',
+      message: 'logout success.',
       data: {},
     });
   };
