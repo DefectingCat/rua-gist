@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import useTranslation from 'lib/hooks/useTranslation';
+import { ReactNode } from 'react';
 
 type Props = {
   loading: boolean;
+  children?: ReactNode;
 };
 
-const SignInButton = ({ loading }: Props) => {
-  const { t } = useTranslation();
-
+const SignInButton = ({ loading, children }: Props) => {
   return (
     <>
       <div className="mt-8">
@@ -17,7 +17,7 @@ const SignInButton = ({ loading }: Props) => {
             loading && 'loading'
           )}
         >
-          {t('login')}
+          {children}
         </button>
       </div>
     </>

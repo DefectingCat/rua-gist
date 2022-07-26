@@ -1,4 +1,4 @@
-import data from '../../assets/i18n/data.json';
+import data from 'assets/i18n/data.json';
 
 type TranslationData = typeof data;
 
