@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import useTranslation from 'lib/hooks/useTranslation';
 import { ReactNode } from 'react';
 
 type Props = {

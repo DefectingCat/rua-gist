@@ -1,4 +1,6 @@
-import classNames from 'classnames';
+import { useBoolean } from 'ahooks';
+import FormInput from 'components/form/FormInput';
+import PasswordInput from 'components/form/PasswordInput';
 import useFormErrorMap from 'lib/hooks/useFormErrorMap';
 import useTranslation from 'lib/hooks/useTranslation';
 import dynamic from 'next/dynamic';
@@ -6,12 +8,14 @@ import { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 
 const LoginLayout = dynamic(() => import('layouts/LoginLayout'));
+const SubmitButton = dynamic(() => import('components/form/SubmitButton'));
+const LoginCard = dynamic(() => import('components/login/LoginCard'));
 
 export type SignUpFormData = {
   username: string;
   email: string;
   password: string;
-  checkPassword: string;
+  confirmPassword: string;
 };
 
 const SignUp = () => {
@@ -21,41 +25,73 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<SignUpFormData>({
     mode: 'onChange',
   });
 
   const errorMap = useFormErrorMap();
+  const [loading, loadingOp] = useBoolean(false);
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      loadingOp.setTrue();
+    } catch (e) {
+    } finally {
+      loadingOp.setFalse();
+    }
+  });
 
   return (
     <>
-      <div
-        className={classNames(
-          'p-8 shadow-xl w-full bg-base-100 card',
-          'max-w-md'
-        )}
-      >
-        <div className="pb-6">
-          <h1 className="text-2xl font-semibold">{t('Sign Up')}</h1>
-        </div>
+      <LoginCard title={t('Sign Up')}>
+        <form onSubmit={onSubmit}>
+          <FormInput
+            id="username"
+            name="username"
+            label={t('Username')}
+            placeholder={t('username')}
+            register={register}
+            rules={{
+              required: true,
+              minLength: 3,
+              maxLength: 20,
+            }}
+            errors={errors}
+            errorMap={errorMap}
+          />
 
-        <form>
-          <div>
-            <label htmlFor="username">{t('Username')}</label>
+          <PasswordInput
+            id="password"
+            name="password"
+            label={t('Password')}
+            placeholder={t('password')}
+            register={register}
+            rules={{ required: true, maxLength: 30 }}
+            errors={errors}
+            errorMap={errorMap}
+            className="mt-3"
+          />
+          <PasswordInput
+            id="confirmPassword"
+            name="confirmPassword"
+            label={t('confirmPassword')}
+            placeholder={t('confirmPassword')}
+            register={register}
+            rules={{
+              required: true,
+              validate: (v: string) => {
+                if (watch('password') !== v) return '';
+              },
+            }}
+            errors={errors}
+            errorMap={errorMap}
+            className="mt-3"
+          />
 
-            <div className="relative mt-2">
-              <input
-                type="text"
-                placeholder={t('username')}
-                className={classNames(
-                  'w-full transition-all outline-none',
-                  'input-bordered input'
-                )}
-              />
-            </div>
-          </div>
+          <SubmitButton loading={loading}>{t('Sign Up')}</SubmitButton>
         </form>
-      </div>
+      </LoginCard>
 
       <div></div>
     </>

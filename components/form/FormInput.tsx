@@ -30,9 +30,11 @@ const FormInput = <TFormValues extends Record<string, unknown>>({
   errorMap,
   ...rest
 }: FormInputProps<TFormValues>) => {
+  const { className, ...props } = rest;
+
   return (
     <>
-      <div>
+      <div className={className}>
         <label htmlFor={name}>{label}</label>
 
         <div className="relative mt-2">
@@ -40,10 +42,9 @@ const FormInput = <TFormValues extends Record<string, unknown>>({
             className={classNames(
               'w-full transition-all outline-none',
               'input-bordered input',
-              errors[name]?.type && 'input-error',
-              rest.className
+              errors[name]?.type && 'input-error'
             )}
-            {...rest}
+            {...props}
             {...(register && register(name, rules))}
           />
 

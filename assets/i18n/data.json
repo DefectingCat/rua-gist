@@ -14,7 +14,11 @@
       "Email": "Email",
       "email": "email",
       "Value required": "Value required",
-      "Not a valid email address": "Not a valid email address"
+      "Not a valid email address": "Not a valid email address",
+      "Minimum three characters": "Minimum three characters",
+      "Maximum twenty characters": "Maximum twenty characters",
+      "confirmPassword": "Confirm Password",
+      "Password do not match": "Passwords do not match"
     }
   },
   "zh-CN": {
@@ -32,7 +36,11 @@
       "Email": "邮箱",
       "email": "邮箱",
       "Value required": "请输入值",
-      "Not a valid email address": "邮箱格式不正确"
+      "Not a valid email address": "邮箱格式不正确",
+      "Minimum three characters": "最少三个字符",
+      "Maximum twenty characters": "最多二十个字符",
+      "confirmPassword": "确认密码",
+      "Password do not match": "密码不一致"
     }
   }
 }
